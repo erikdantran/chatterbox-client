@@ -7,6 +7,9 @@ var App = {
   $spinner: $('.spinner img'),
 
   username: 'anonymous',
+  // currentRoom: function (room = undefined) {
+  //   return room;
+  // },
 
   initialize: function () {
     App.username = window.location.search.substr(10);
@@ -28,33 +31,54 @@ var App = {
       // examine the response from the server request:
       console.log(data);
 
-      for ( var i = 0; i < data.length; i++) {
-        var messageObject = {};
-        // if ( )
-        messageObject['username'] = data[i]['username'];
-        messageObject['text'] = data[i]['text']
-        messageObject['roomname'] = data[i]['roomname']
-        Messages.add(messageObject);
+      // var html = ""
+      // for (var i = 0; i < data.length; i++) {
+      //   if (data[i]['text'] !== null) {
+      //     if ( data[i]['text'].slice(0,8) !== '<script>' ) {
+      //       html += compiled(data[i])
+      //     }
+      //   }
+      // console.log(html)
+      // }
+
+      for (var i = 0; i < data.length; i++) {
+        // console.log(data[i]['text'])
+        if (data[i]['text'] !== null) {
+          if (data[i]['text'].slice(0, 8) !== '<script>') {
+            var messageObject = {};
+            messageObject['username'] = data[i]['username'];
+            messageObject['text'] = data[i]['text']
+            messageObject['roomname'] = data[i]['roomname']
+            Messages.add(messageObject);
+          }
+        }
+      }
+
+      for (message of Messages._data) {
+        var room = message['roomname'];
+        if (!Rooms._data.includes(room)) {
+          Rooms.add(room)
+        }
       }
 
 
       MessagesView.render(); // May need to change or move this later on, might need to swap with initialize?
-      callback();
+    callback();
 
-      // TODO: Use the data to update Messages and Rooms
-      // and re-render the corresponding views.
-    });
+    // TODO: Use the data to update Messages and Rooms
+    // and re-render the corresponding views.
+  });
   },
 
-  startSpinner: function () {
-    App.$spinner.show();
-    FormView.setStatus(true);
-  },
+startSpinner: function () {
+  App.$spinner.show();
+  FormView.setStatus(true);
+},
 
-  stopSpinner: function () {
-    App.$spinner.fadeOut('fast');
-    FormView.setStatus(false);
-  }
+stopSpinner: function () {
+  App.$spinner.fadeOut('fast');
+  FormView.setStatus(false);
+}
 };
 
 
@@ -77,13 +101,5 @@ var App = {
       //   "</div>"
       // );
 
-      // var html = ""
-      // for (var i = 0; i < data.length; i++) {
-      //   if (data[i]['text'] !== null) {
-      //     if ( data[i]['text'].slice(0,8) !== '<script>' ) {
-      //       html += compiled(data[i])
-      //     }
-      //   }
-      //   console.log(html)
-      // }
+
       // $('#chats').append(html)

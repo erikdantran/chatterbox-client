@@ -18,10 +18,17 @@ var FormView = {
     // Make this function actually send a message to the Parse API.
 
     // var userMessage = $('#message').innerText() //  Grab username and room and create object with it
-    // Parse.create(userMessage)
-    // console.log(userMessage)
+    var $message = $('#message')[0].value;
+    var messageObject = {};
 
-    console.log('click!');
+    messageObject['username'] = App.username;
+    messageObject['text'] = $message;
+    messageObject['roomname'] = RoomsView.currentRoom;
+
+    Messages._data.unshift(messageObject);
+    Parse.create(messageObject, App.fetch());
+    // MessagesView.render
+    // console.log(messageObject);
   },
 
   setStatus: function(active) {
@@ -30,3 +37,12 @@ var FormView = {
   }
 
 };
+
+// username = App.username
+// var $message = $('#message')[0].value;
+// currentRoom = App.currentRoom
+
+// var message = {
+//   username: 'Mel Brooks',
+//   text: 'Never underestimate the power of the Schwartz!',
+//   roomname: 'lobby'

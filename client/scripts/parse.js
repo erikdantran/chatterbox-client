@@ -15,7 +15,7 @@ var Parse = {
       contentType: 'application/json',
       success: successCB, // add message into array and rerender message possibly
       error: errorCB || function (data) {
-        console.error('chatterbox: Failed to fetch messages', data);
+        console.error('chatterbox: Failed to send message', data);
       }
     })
   },

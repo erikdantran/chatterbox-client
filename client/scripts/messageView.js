@@ -13,5 +13,3 @@ var MessageView = {
     `)
 
 };
-
-// <%= text %>
