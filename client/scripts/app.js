@@ -8,7 +8,7 @@ var App = {
 
   username: 'anonymous',
 
-  initialize: function() {
+  initialize: function () {
     App.username = window.location.search.substr(10);
 
     FormView.initialize();
@@ -23,23 +23,67 @@ var App = {
     // continually, instead of just once at the start.
   },
 
-  fetch: function(callback = ()=>{}) {
+  fetch: function (callback = () => { }) {
     Parse.readAll((data) => {
       // examine the response from the server request:
       console.log(data);
+
+      for ( var i = 0; i < data.length; i++) {
+        var messageObject = {};
+        // if ( )
+        messageObject['username'] = data[i]['username'];
+        messageObject['text'] = data[i]['text']
+        messageObject['roomname'] = data[i]['roomname']
+        Messages.add(messageObject);
+      }
+
+
+      MessagesView.render(); // May need to change or move this later on, might need to swap with initialize?
+      callback();
 
       // TODO: Use the data to update Messages and Rooms
       // and re-render the corresponding views.
     });
   },
 
-  startSpinner: function() {
+  startSpinner: function () {
     App.$spinner.show();
     FormView.setStatus(true);
   },
 
-  stopSpinner: function() {
+  stopSpinner: function () {
     App.$spinner.fadeOut('fast');
     FormView.setStatus(false);
   }
 };
+
+
+
+// var compiled = _.template(
+      //   "<div>" +
+
+      //   "<h3 class='username'> Username: " +
+      //   "<%= username %>" +
+      //   "</h3>" +
+
+      //   "<p> Campus: " +
+      //   "<%= campus %>" +
+      //   " </p>" +
+
+      //   "<p class='chat'>" +
+      //   "<%= text %>" +
+      //   " </p>" +
+
+      //   "</div>"
+      // );
+
+      // var html = ""
+      // for (var i = 0; i < data.length; i++) {
+      //   if (data[i]['text'] !== null) {
+      //     if ( data[i]['text'].slice(0,8) !== '<script>' ) {
+      //       html += compiled(data[i])
+      //     }
+      //   }
+      //   console.log(html)
+      // }
+      // $('#chats').append(html)

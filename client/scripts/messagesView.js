@@ -5,17 +5,30 @@ var MessagesView = {
 
   $chats: $('#chats'),
 
-  initialize: function() {
+  initialize: function() { // populates messages._data with message objects
     // TODO: Perform any work which needs to be done
     // when this view loads.
   },
 
-  render: function() {
+  render: function() { // displays messages when render is called
     // TODO: Render _all_ the messages.
+    // use for loop here to iterate through messages.js array
+    var html = ''
+    for (message of Messages._data) {
+      html += MessageView.render(message)
+    }
+    $('#chats').append(html)
   },
 
-  renderMessage: function(message) {
-    // TODO: Render a single message.
+  // for (i = 0; i < data.movies.length; i++) {
+  //   html += MessageView.render(data.movies[i]);
+  // }
+
+  renderMessage: function(messageObject) {
+    var html = ''
+    html += MessageView.render(messageObject)
+    $('#chats').append(html)
+
   },
 
   handleClick: function(event) {

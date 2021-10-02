@@ -15,9 +15,29 @@ var RoomsView = {
     // TODO: Render out the list of rooms.
   },
 
-  renderRoom: function(roomname) {
+  renderRoom: function(roomName) {
     // TODO: Render out a single room.
+    // remove currently displayed chats
+    // rerender with filtered list that are chats from only that room
+    var specifiedRoom = [];
+    for (message of Messages._data) {
+      if (message.roomname === roomName) {
+        specifiedRoom.push(message);
+      }
+    }
+
+    var roomListOption = `<option value='${roomName}'>${roomName}</option>`;
+    this.$select.append(roomListOption);
+
+    console.log(this.$select)
+    var html = ''
+    for (specifiedMessages of specifiedRoom) {
+      html += MessageView.render(message)
+    }
+    $('#chats').append(html)
   },
+
+
 
   handleChange: function(event) {
     // TODO: Handle a user selecting a different room.

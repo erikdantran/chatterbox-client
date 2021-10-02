@@ -16,7 +16,11 @@ var FormView = {
 
     // TODO: Currently, this is all handleSubmit does.
     // Make this function actually send a message to the Parse API.
-  
+
+    // var userMessage = $('#message').innerText() //  Grab username and room and create object with it
+    // Parse.create(userMessage)
+    // console.log(userMessage)
+
     console.log('click!');
   },
 

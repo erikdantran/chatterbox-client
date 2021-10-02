@@ -2,6 +2,8 @@
 // Treat it like a data structure - add methods to interact
 // with and manipulate the data.
 
+
+// Allow users to 'befriend' other users by clicking on their user name
 var Friends = {
   // TODO: Define how you want to store your list of friends.
 
